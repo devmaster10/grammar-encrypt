@@ -15,7 +15,7 @@ use App\Util\CommonUtil;
 class ModelEncrypt extends Model
 {
 
-    protected $fillableCrypt = [];
+    protected $fillableEncrypt = [];
 
     /**
      * Get a new query builderencrypt instance for the connection.
@@ -29,7 +29,7 @@ class ModelEncrypt extends Model
          // Only for MySqlGrammar
         if (get_class($connection) === 'Illuminate\Database\MySqlConnection') {
             $grammarEncrypt = $connection->withTablePrefix(new GrammarEncrypt);
-            $grammarEncrypt->setFillableEncrypt($this->fillableCrypt);
+            $grammarEncrypt->setFillableEncrypt($this->fillableEncrypt);
             $connection->setQueryGrammar($grammarEncrypt);
         }
 
