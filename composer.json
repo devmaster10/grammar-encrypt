@@ -18,6 +18,11 @@
             "DevMaster10\\GrammarEncrypt\\": "src"
         }
     },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.8-dev"
+        }
+    },
     "config": {
         "sort-packages": true
     },
