@@ -13,6 +13,14 @@ class GrammarEncrypt extends MySqlGrammar {
 
     public $fillableEncrypt = [];
 
+
+    protected $GRAMMAR_KEY;
+
+    public function __construct()
+    {
+        $this->GRAMMAR_KEY = env('APP_GRAMMARENCRYPT_KEY');
+    }
+
     /**
      * Set encrypted columns.
      *
@@ -144,7 +152,7 @@ class GrammarEncrypt extends MySqlGrammar {
                 return $this->wrapTable($segment);
             } else if($encrypt && in_array($segment, $this->fillableEncrypt)) {
                 $columnAlias = $this->wrapValue($segment);
-                return "AES_DECRYPT(" . $this->wrapValue($segment) . ", 'th1s1sasaltkey')" . ($forceAlias ? " as " . $columnAlias : "");
+                return "AES_DECRYPT(" . $this->wrapValue($segment) . ", '" . $this->GRAMMAR_KEY . "')" . ($forceAlias ? " as " . $columnAlias : "");
             } else {
                 return $this->wrapValue($segment);
             }
@@ -195,7 +203,7 @@ class GrammarEncrypt extends MySqlGrammar {
         if($this->isExpression($value))
             return $this->getValue($value);
         else if($key && in_array($key, $this->fillableEncrypt))
-            return  "AES_ENCRYPT(?, 'th1s1sasaltkey')";
+            return  "AES_ENCRYPT(?, '" . $this->GRAMMAR_KEY . "')";
         else
             return '?';
     }
