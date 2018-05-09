@@ -3,10 +3,12 @@
 
 # grammar-encrypt
 Encryption AES on mysql side
-What versions of Laravel are supported It have been tested only with Laravel 5.0.
-But you can try it with Laravel 5.4 too. How to install Add package to composer.json
+What versions of Laravel are supported It have been tested only with Laravel 5.4.
+But you can try it with Laravel 5.x too.
 
 ## Installation
+
+How to install Add package to composer.json
 
 ```php
 "repositories": [
