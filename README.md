@@ -35,7 +35,7 @@ namespace App\Models;
 
 use DevMaster10\GrammarEncrypt\Database\ModelEncrypt;
 
-class LSAttribute extends ModelEncrypt
+class Persons extends ModelEncrypt
 {    
     /**
      * The table associated with the model.
