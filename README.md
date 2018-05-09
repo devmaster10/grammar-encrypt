@@ -1,5 +1,7 @@
 * [Installation](#installation)
 * [Updating your Eloquent Models](#updating-your-eloquent-models)
+* [Creating tables to support encrypt columns](#creating-tables-to-support-encrypt-columns)
+
 
 # grammar-encrypt
 Encryption AES on mysql side
@@ -61,3 +63,25 @@ class LSAttribute extends ModelEncrypt
                 ];
 }
 ```
+
+
+## Creating tables to support encrypt columns
+It adds new features to Schema which you can use in your migrations:
+
+```php
+    Schema::create('tb_persons', function (Blueprint $table) {
+        // here you do all columns supported by the schema builder
+        $table->increments('id')->unsigned;
+        $table->string('description', 250);
+        $table ->unsignedInteger('created_by')->nullable();
+        $table ->unsignedInteger('updated_by')->nullable();
+    });
+    
+    // once the table is created use a raw query to ALTER it and add the MEDIUMBLOB
+    DB::statement("ALTER TABLE tb_persons ADD name MEDIUMBLOB after id");  
+```
+
+
+});
+
+
