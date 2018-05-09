@@ -1,0 +1,21 @@
+{
+    "name": "devmaster10/grammar-encrypt",
+    "description": "Mysql AES Encrypt",
+    "authors": [
+        {
+            "name": "Marcelo Barros",
+            "email": "marcelofbarros@outlook.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/config": "self.version",
+        "illuminate/database": "self.version",
+        "illuminate/support": "self.version"
+    },
+    "autoload": {
+        "psr-4": {
+            "DevMaster10\\GrammarEncrypt\\": "src"
+        }
+    }
+}
