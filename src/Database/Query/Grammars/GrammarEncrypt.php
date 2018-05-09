@@ -2,14 +2,8 @@
 
 namespace DevMaster10\GrammarEncrypt\Database\Query\Grammars;
 
-// use Illuminate\Support\Fluent;
-// use Illuminate\Database\Connection;
-// use Illuminate\Database\Schema\Grammars\MySqlGrammar as IlluminateMySqlGrammar;
-// use Illuminate\Database\Query\Grammars\Grammar;
-// use Illuminate\Database\Schema\Grammars\MySqlGrammar;
 use Illuminate\Database\Query\Grammars\MySqlGrammar;
 use Illuminate\Database\Query\Builder;
-// use Illuminate\Database\Schema\Blueprint as IlluminateBlueprint;
 
 /**
  * Extended version of MySqlGrammar with
@@ -29,112 +23,6 @@ class GrammarEncrypt extends MySqlGrammar {
     {
         $this->fillableEncrypt = $fillableEncrypt;
     }
-
-    //   /**
-    //  * Wrap a value in keyword identifiers.
-    //  *
-    //  * @param  \Illuminate\Database\Query\Expression|string  $value
-    //  * @param  bool    $prefixAlias
-    //  * @return string
-    //  */
-    // public function wrap($value, $prefixAlias = false)
-    // {
-    //     if ($this->isExpression($value)) {
-    //         return $this->getValue($value);
-    //     }
-
-    //     // If the value being wrapped has a column alias we will need to separate out
-    //     // the pieces so we can wrap each of the segments of the expression on it
-    //     // own, and then joins them both back together with the "as" connector.
-    //     if (strpos(strtolower($value), ' as ') !== false) {
-    //         return $this->wrapAliasedValue($value, $prefixAlias);
-    //     }
-
-    //     return $this->wrapSegments(explode('.', $value));
-    // }
-
-    // /**
-    //  * Wrap a value that has an alias.
-    //  *
-    //  * @param  string  $value
-    //  * @param  bool  $prefixAlias
-    //  * @return string
-    //  */
-    // protected function wrapAliasedValue($value, $prefixAlias = false)
-    // {
-    //     $segments = preg_split('/\s+as\s+/i', $value);
-
-    //     // If we are wrapping a table we need to prefix the alias with the table prefix
-    //     // as well in order to generate proper syntax. If this is a column of course
-    //     // no prefix is necessary. The condition will be true when from wrapTable.
-    //     if ($prefixAlias) {
-    //         $segments[1] = $this->tablePrefix.$segments[1];
-    //     }
-
-    //     //  if(in_array($segments[0], $this->fillableCrypt)) {
-    //     //      return    "AES_DECRYPT(" . $segments[0] . ", 'th1s1sasaltkey')" .' as '.$this->wrapValue($segments[1]);
-    //     //  }
-
-    //     return $this->wrap(
-    //         $segments[0]).' as '.$this->wrapValue($segments[1]
-    //     );
-    // }
-
-    // /**
-    //  * Wrap the given value segments.
-    //  *
-    //  * @param  array  $segments
-    //  * @return string
-    //  */
-    // protected function wrapSegments($segments)
-    // {
-    //     return collect($segments)->map(function ($segment, $key) use ($segments) {
-    //         return $key == 0 && count($segments) > 1
-    //                         ? $this->wrapTable($segment)
-    //                         : $this->wrapValue($segment);
-    //     })->implode('.');
-    // }
-
-    // /**
-    //  * Compile the components necessary for a select clause.
-    //  *
-    //  * @param  \Illuminate\Database\Query\Builder  $query
-    //  * @return array
-    //  */
-    // protected function compileComponents(Builder $query)
-    // {
-    //     $sql = [];
-
-    //     foreach ($this->selectComponents as $component) {
-    //         // To compile the query, we'll spin through each component of the query and
-    //         // see if that component exists. If it does we'll just call the compiler
-    //         // function for the component which is responsible for making the SQL.
-    //         if (! is_null($query->$component)) {
-    //             $method = 'compile'.ucfirst($component);
-
-    //             $sql[$component] = $this->$method($query, $query->$component);
-    //         }
-    //     }
-
-    //     return $sql;
-    // }
-
-    // /**
-    //  * Compile a select query into SQL.
-    //  *
-    //  * @param  \Illuminate\Database\Query\Builder  $query
-    //  * @return string
-    //  */
-    // public function compileSelect(Builder $query)
-    // {
-    //     $sql = parent::compileSelect($query);
-
-    //     if ($query->unions) {
-    //         $sql = '('.$sql.') '.$this->compileUnions($query);
-    //     }
-
-    //     return $sql;
-    // }
 
     // /**
     //  * Compile the "select *" portion of the query.
@@ -260,10 +148,6 @@ class GrammarEncrypt extends MySqlGrammar {
             } else {
                 return $this->wrapValue($segment);
             }
-            
-            // return $key == 0 && count($segments) > 1
-            //                 ? $this->wrapTable($segment)
-            //                 : $this->wrapValue($segment, $forceAlias);
         })->implode('.');
     }
 
@@ -329,7 +213,6 @@ class GrammarEncrypt extends MySqlGrammar {
             if ($this->isJsonSelector($key)) {
                 return $this->compileJsonUpdateColumn($key, new JsonExpression($value));
             } else {
-                // return $this->wrap($key).' = '.$this->parameter($value);
                 return $this->wrap($key).' = '.$this->parameterKey($key, $value);
           
             }
@@ -446,29 +329,6 @@ class GrammarEncrypt extends MySqlGrammar {
     }
 
     /**
-     * Wrap a single string with AES_DECRYPT.
-     *
-     * @param  string  $value
-     * @return string
-     */
-    protected function wrapAESDecrypt($value)
-    {
-        // if ($value === '*') {
-        //     return $value;
-        // }
-
-        // // If the given value is a JSON selector we will wrap it differently than a
-        // // traditional value. We will need to split this path and wrap each part
-        // // wrapped, etc. Otherwise, we will simply wrap the value as a string.
-        // if ($this->isJsonSelector($value)) {
-        //     return $this->wrapJsonSelector($value);
-        // }
-
-        return "AES_DECRYPT(" . str_replace('`', '``', $value) . ", 'th1s1sasaltkey')";
-    }
-
-
-    /**
      * Compile a date based where clause.
      *
      * @param  string  $type
@@ -539,7 +399,6 @@ class GrammarEncrypt extends MySqlGrammar {
                         : $order['sql'];
         }, $orders);
     }
-
 
     /**
      * Compile an exists statement into SQL.
