@@ -78,7 +78,7 @@ It adds new features to Schema which you can use in your migrations:
         $table ->unsignedInteger('updated_by')->nullable();
     });
     
-    // once the table is created use a raw query to ALTER it and add the MEDIUMBLOB
+    // once the table is created use a raw query to ALTER it and add the BLOB, MEDIUMBLOB or LONGBLOB
     DB::statement("ALTER TABLE tb_persons ADD name MEDIUMBLOB after id");  
 ```
 
