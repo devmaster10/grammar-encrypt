@@ -1,6 +1,6 @@
 * [Installation](#installation)
 * [Updating your Eloquent Models](#updating-your-eloquent-models)
-https://github.com/devmaster10/grammar-encrypt
+
 # grammar-encrypt
 Encryption AES on mysql side
 What versions of Laravel are supported It have been tested only with Laravel 5.0.
