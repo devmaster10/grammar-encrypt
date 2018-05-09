@@ -1,6 +1,7 @@
 * [Installation](#installation)
 * [Updating your Eloquent Models](#updating-your-eloquent-models)
 * [Creating tables to support encrypt columns](#creating-tables-to-support-encrypt-columns)
+* [Set encryption key in .env file](#set-encryption-key-in-.env-file)
 
 
 # grammar-encrypt
@@ -84,4 +85,8 @@ It adds new features to Schema which you can use in your migrations:
 
 });
 
+## Set encryption key in .env file
 
+```php
+APP_GRAMMARENCRYPT_KEY=yourencryptedkey
+```
