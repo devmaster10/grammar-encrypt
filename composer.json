@@ -9,13 +9,17 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "illuminate/config": "self.version",
-        "illuminate/database": "self.version",
-        "illuminate/support": "self.version"
+        "illuminate/config": "~5.4",
+        "illuminate/database": "~5.4",
+        "illuminate/support": "~5.4"
     },
     "autoload": {
         "psr-4": {
             "DevMaster10\\GrammarEncrypt\\": "src"
         }
-    }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
 }
