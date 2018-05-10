@@ -1,6 +1,6 @@
 {
     "name": "devmaster10/grammar-encrypt",
-    "description": "Laravel 5.x Database Encryption pm mysql side Use native mysql function AES_DECRYPT and AES_ENCRYPT. What versions of Laravel are supported. It have been tested only with Laravel 5.4. But you can try it with Laravel 5.x too.",
+    "description": "Laravel 5.x Database Encryption in mysql side Use native mysql function AES_DECRYPT and AES_ENCRYPT. What versions of Laravel are supported. It have been tested only with Laravel 5.4. But you can try it with Laravel 5.x too.",
     "authors": [
         {
             "name": "Marcelo Barros",
